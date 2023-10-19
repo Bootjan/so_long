@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:33:00 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/18 20:27:57 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:38:25 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	check_top_and_bottem(char **map, t_mapinfo map_info, int *error_flag)
 	{
 		if (map[0][i++] != '1')
 		{
-			*error_flag = 2;
+			*error_flag = 5;
 			return ;
 		}
 	}
@@ -30,7 +30,7 @@ void	check_top_and_bottem(char **map, t_mapinfo map_info, int *error_flag)
 	{
 		if (map[map_info.height - 1][i++] != '1')
 		{
-			*error_flag = 2;
+			*error_flag = 5;
 			return ;
 		}
 	}
@@ -45,7 +45,7 @@ void	check_left_right(char **map, t_mapinfo map_info, int *error_flag)
 	{
 		if (map[i++][0] != '1')
 		{
-			*error_flag = 2;
+			*error_flag = 5;
 			return ;
 		}
 	}
@@ -54,7 +54,7 @@ void	check_left_right(char **map, t_mapinfo map_info, int *error_flag)
 	{
 		if (map[i++][map_info.width - 1] != '1')
 		{
-			*error_flag = 2;
+			*error_flag = 5;
 			return ;
 		}
 	}
@@ -84,7 +84,7 @@ void	check_exits(char **map, t_mapinfo *map_info, int *error_flag)
 		y++;
 	}
 	if (exit_n != 1)
-		*error_flag = 2;
+		*error_flag = 3;
 }
 
 void	check_start(char **map, t_mapinfo *map_info, int *error_flag)
@@ -136,5 +136,5 @@ void	check_collectables(char **map, t_mapinfo *map_info, int *error_flag)
 		y++;
 	}
 	if (collect_n == 0)
-		*error_flag = 2;
+		*error_flag = 4;
 }

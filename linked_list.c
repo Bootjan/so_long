@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:13:26 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/18 20:24:47 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:36:18 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,26 @@ char	*put_line_map(t_lines *lines, int index)
 	while (current && i++ < index)
 		current = current->next;
 	return (current->line);
+}
+
+char	*line_without_nl(int fd, int *error_flag)
+{
+	int		len;
+	char	*str;
+	char	*out;
+
+	str = get_next_line(fd);
+	if (!str)
+		return (NULL);
+	len = ft_strlen(str);
+	if (str[len - 1] != '\n')
+		return (str);
+	out = ft_substr(str, 0, len - 1);
+	free(str);
+	if (!out)
+	{
+		*error_flag = 1;
+		return (NULL);
+	}
+	return (out);
 }

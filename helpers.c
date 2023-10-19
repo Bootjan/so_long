@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:11 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/18 20:26:44 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/19 21:08:10 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,29 @@ void	init_map_info(t_mapinfo *map_info)
 	map_info->x_exit = 0;
 	map_info->y_exit = 0;
 	map_info->collectables_n = 0;
+	map_info->path = 0;
 }
 
 void	free_map(char ***map)
 {
 	int	i;
 
+	if (!*map)
+		return ;
 	i = 0;
 	while ((*map)[i])
-		free((*map)[i++]);
+	{
+		free((*map)[i]);
+		(*map)[i++] = NULL;
+	}
 	free(*map);
 	*map = NULL;
 }
 
 int	compute_map_width(int current_width, char *line)
 {
+	if (!line)
+		return (current_width);
 	if (current_width == -1)
 		return (ft_strlen(line));
 	if (current_width != (int)ft_strlen(line))
@@ -41,33 +49,32 @@ int	compute_map_width(int current_width, char *line)
 	return (current_width);
 }
 
-char	*line_without_nl(int fd)
+void	print_map(char **map, t_mapinfo map_info)
 {
-	int		len;
-	char	*str;
-	char	*out;
+	int	i;
 
-	str = get_next_line(fd);
-	if (!str)
-		return (NULL);
-	len = ft_strlen(str);
-	if (str[len - 1] != '\n')
-		return (str);
-	out = ft_substr(str, 0, len - 1);
-	free(str);
-	if (!out)
-		return (NULL);
-	return (out);
+	i = 0;
+	while (i < map_info.height)
+		ft_putendl_fd(map[i++], 1);
 }
 
-int	check_validity_map(char **map, t_mapinfo *map_info, int *error_flag)
+void	check_elements(char **map, t_mapinfo map_info, int *error_flag)
 {
-	check_top_and_bottem(map, *map_info, error_flag);
-	check_left_right(map, *map_info, error_flag);
-	check_exits(map, map_info, error_flag);
-	check_start(map, map_info, error_flag);
-	check_collectables(map, map_info, error_flag);
-	if (*error_flag == 2)
-		return (0);
-	return (1);
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < map_info.height)
+	{
+		x = 0;
+		while (x < map_info.width)
+		{
+			if(!in_arr(map[y][x++], "01ECP"))
+			{
+				*error_flag = 7;
+				return ;
+			}
+		}
+		y++;
+	}
 }
