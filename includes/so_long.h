@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:53:03 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/20 15:07:33 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:53:02 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,13 @@ char	**cpy_map(char **map, t_mapinfo map_info);
 int		in_arr(char s, char *arr);
 void	check_elements(char **map, t_mapinfo map_info, int *error_flag);
 void	print_error(int error_flag);
+
+void	load_window(char **map, t_mapinfo map_info);
+void	put_wall(mlx_t *window, mlx_image_t **image, t_mapinfo map_info, int i);
+void	put_empty(mlx_t *window, mlx_image_t **image, t_mapinfo map_info, int i);
+void	put_exit(mlx_t *window, mlx_image_t **image, t_mapinfo map_info, int i);
+void	put_start(mlx_t *window, mlx_image_t **image, t_mapinfo map_info, int i);
+void	put_collect(mlx_t *window, mlx_image_t **image, t_mapinfo map_info, int i);
 
 /*
 * Error values and meaning:

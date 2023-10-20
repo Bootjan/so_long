@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:54:46 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/20 12:42:05 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:52:12 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int argc, char **argv)
 	if (error_flag == 0)
 	{
 		print_map(map, map_info);
+		load_window(map, map_info);
 		free_map(&map);
 	}
 }
