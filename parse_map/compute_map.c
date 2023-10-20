@@ -6,11 +6,11 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:56:43 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/19 21:23:12 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/20 12:42:23 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 t_lines	*compute_lines(int fd, t_mapinfo *map_info, int *error_flag)
 {

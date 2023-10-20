@@ -6,11 +6,11 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:33:00 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/19 20:38:25 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/20 12:42:19 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 void	check_top_and_bottem(char **map, t_mapinfo map_info, int *error_flag)
 {

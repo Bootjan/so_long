@@ -6,11 +6,11 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:17:08 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/19 13:35:04 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/20 12:41:42 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 t_pos	init_pos(int x, int y)
 {

@@ -6,11 +6,11 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:11 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/19 21:08:10 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/20 12:42:27 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 void	init_map_info(t_mapinfo *map_info)
 {
@@ -26,7 +26,7 @@ void	free_map(char ***map)
 {
 	int	i;
 
-	if (!*map)
+	if (!*map || !**map)
 		return ;
 	i = 0;
 	while ((*map)[i])

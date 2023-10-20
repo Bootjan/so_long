@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:53:03 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/19 21:23:26 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/20 15:07:33 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "libft.h"
 # include "get_next_line.h"
 # include <stdio.h>
+#include "MLX42.h"
 
 typedef struct s_lines
 {
@@ -47,6 +48,12 @@ typedef struct s_pos
 # define SIZE_OF_CHAR 1
 # define SIZE_OF_CHAR_PTR 8
 # define MAX_FD 65535
+# define BLOCK_SIZE 48
+# define WALL_CLR
+# define EMPTY_CLR
+# define EXIT_CLR
+# define START_CLR
+# define COLLECT_CLR
 
 char	*get_next_line(int fd);
 char	*put_line_map(t_lines *lines, int index);
@@ -89,6 +96,10 @@ void	print_error(int error_flag);
 * 8 = bad argc
 * 9 = txt not found
 * 10 = lines not equal
+*/
+
+/*
+* size of block = 48
 */
 
 // map[row][column]

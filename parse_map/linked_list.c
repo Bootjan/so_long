@@ -6,11 +6,11 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:13:26 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/19 19:36:18 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/20 12:42:31 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 t_lines	*create_element(char *line)
 {

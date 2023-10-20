@@ -6,11 +6,11 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:46:11 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/18 19:08:54 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/20 12:43:12 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../includes/get_next_line.h"
 
 char	*free_temp(char **temp)
 {

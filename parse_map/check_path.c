@@ -6,11 +6,11 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 11:46:36 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/19 20:37:42 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/20 12:42:16 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 char	update_direction(char direction)
 {

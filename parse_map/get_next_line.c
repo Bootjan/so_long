@@ -6,11 +6,11 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:41:05 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/18 19:09:17 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/20 12:43:16 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../includes/get_next_line.h"
 
 static void	compute_buffer(char **temp, int fd, int *r, char buffer[])
 {
