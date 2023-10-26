@@ -6,113 +6,132 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:43:52 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/20 15:57:59 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/26 17:31:39 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-static mlx_image_t	*image;
 
+void	free_coins_list(t_collect **coins_info)
+{
+	t_collect	*current;
+	t_collect	*next;
 
-// int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
-// {
-//     return (r << 24 | g << 16 | b << 8 | a);
-// }
+	current = *coins_info;
+	if (!current)
+		return ;
+	while (current)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+}
 
-// void ft_randomize(void* param)
-// {
-// 	for (int32_t i = 0; i < image->width; ++i)
-// 	{
-// 		for (int32_t y = 0; y < image->height; ++y)
-// 		{
-// 			uint32_t color = ft_pixel(
-// 				245,
-// 				40, // G
-// 				145, // B
-// 				100  // A
-// 			);
-// 			mlx_put_pixel(image, i, y, color);
-// 		}
-// 	}
-// }
+void	free_vars(t_images **images, t_gameinfo **gameinfo, mlx_t *window, t_collect **coins_info)
+{
+	if (*gameinfo)
+	{
+		free(*gameinfo);
+		*gameinfo = NULL;
+	}
+	mlx_delete_image(window, (*images)->wall);
+	mlx_delete_image(window, (*images)->floor);
+	mlx_delete_image(window, (*images)->collect);
+	mlx_delete_image(window, (*images)->exit);
+	mlx_delete_image(window, (*images)->o_exit);
+	mlx_delete_image(window, (*images)->front);
+	if (*images)
+	{
+		free(*images);
+		*images = NULL;
+	}
+	// free_coins_list(coins_info);
+}
 
-// void ft_hook(void* param)
-// {
-// 	mlx_t* mlx = param;
+t_gameinfo	*init_gameinfo_images(mlx_t *window, t_images *images,\
+ t_collect *coins_info)
+{
+	t_gameinfo	*gameinfo;
 
-// 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-// 		mlx_close_window(mlx);
-// 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-// 		image->instances[0].y -= 5;
-// 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-// 		image->instances[0].y += 5;
-// 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-// 		image->instances[0].x -= 5;
-// 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-// 		image->instances[0].x += 5;
-// }
+	gameinfo = malloc(sizeof(t_gameinfo));
+	if (!gameinfo)
+		return (NULL);
+	gameinfo->window = window;
+	gameinfo->player = images->front;
+	gameinfo->collect = images->collect;
+	gameinfo->exit = images->exit;
+	gameinfo->o_exit = images->o_exit;
+	gameinfo->coins_info = coins_info;
+	gameinfo->key_down = 0;
+	gameinfo->total_moves = 0;
+	gameinfo->total_collect = 0;
+	return (gameinfo);
+}
+
+t_gameinfo	*init_gameinfo_map(t_gameinfo *gameinfo, t_mapinfo map_info, char **map)
+{
+	gameinfo->total_c = map_info.collectables_n;
+	gameinfo->x_exit = map_info.x_exit;
+	gameinfo->y_exit = map_info.y_exit;
+	gameinfo->map = map;
+	return (gameinfo);
+}
+
+void	exit_game(t_gameinfo *gameinfo)
+{
+	int			x;
+	int			y;
+	mlx_image_t	*player;
+
+	player = gameinfo->player;
+	x = (player->instances[0].x + 5) / BLOCK_SIZE;
+	y = (player->instances[0].y + 5) / BLOCK_SIZE;
+	if (gameinfo->total_c == gameinfo->total_collect)
+	{
+		mlx_set_instance_depth(&(gameinfo->o_exit->instances[0]), 1);
+		mlx_set_instance_depth(&(gameinfo->exit->instances[0]), 0);
+		if (x == gameinfo->x_exit && y == gameinfo->y_exit && \
+		mlx_is_key_down(gameinfo->window, MLX_KEY_ENTER))
+			mlx_close_window(gameinfo->window);
+	}
+}
+
+void	play_game(mlx_t *window, t_gameinfo **gameinfo, t_images **images, t_collect **coins_info)
+{
+	mlx_loop_hook(window, make_move, *gameinfo);
+	mlx_loop_hook(window, collect_coins, *gameinfo);
+	mlx_loop_hook(window, exit_game, *gameinfo);
+	mlx_loop(window);
+	free_vars(images, gameinfo, window, coins_info);
+	mlx_terminate(window);
+	mlx_close_window(window);
+}
 
 void	load_window(char **map, t_mapinfo map_info)
 {
-	mlx_t				*window;
-	int					i;
-	char				curr_element;
+	mlx_t		*window;
+	t_images	*images;
+	t_gameinfo	*gameinfo;
+	t_collect	*coins_info;
 
-	window = mlx_init(map_info.width * BLOCK_SIZE, map_info.height * BLOCK_SIZE, "So Long!", false);
+	window = mlx_init(map_info.width * BLOCK_SIZE, \
+	map_info.height * BLOCK_SIZE, "So Long!", false);
 	if (!window)
 	{
 		ft_putendl_fd((char *)mlx_strerror(mlx_errno), 1);
 		return ;
 	}
-	i = 0;
-	while (i < map_info.width * map_info.height)
+	images = load_images(window);
+	if (!images)
 	{
-		curr_element = map[i / map_info.height][i % map_info.width];
-		if (curr_element == '1')
-			put_wall(window, &image, map_info, i);
-		if (curr_element == '0')
-			put_empty(window, &image, map_info, i);
-		if (curr_element == 'E')
-			put_exit(window, &image, map_info, i);
-		if (curr_element == 'P')
-			put_start(window, &image, map_info, i);
-		if (curr_element == 'C')
-			put_collect(window, &image, map_info, i);
-		i++;
+		mlx_close_window(window);
+		free_vars(&images, &gameinfo, window, &coins_info);
+		ft_putendl_fd((char *)mlx_strerror(mlx_errno), 1);
+		return ;
 	}
+	coins_info = put_images_to_window(window, images, map, map_info);
+	gameinfo = init_gameinfo_images(window, images, coins_info);
+	gameinfo = init_gameinfo_map(gameinfo, map_info, map);
+	play_game(window, &gameinfo, &images, &coins_info);
 }
-
-
-
-// int	main()
-// {
-// 	// mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
-// 	mlx_t		*init;
-
-// 	init = mlx_init(1024, 1024, "So Long!", true);
-// 	if (!init)
-// 	{
-// 		puts(mlx_strerror(mlx_errno));
-// 		return(EXIT_FAILURE);
-// 	}
-// 	image = mlx_new_image(init, 128, 128);
-// 	if (!image)
-// 	{
-// 		mlx_close_window(init);
-// 		puts(mlx_strerror(mlx_errno));
-// 		return(EXIT_FAILURE);
-// 	}
-// 	if (mlx_image_to_window(init, image, 5, 5) == -1)
-// 	{
-// 		mlx_close_window(init);
-// 		puts(mlx_strerror(mlx_errno));
-// 		return(EXIT_FAILURE);
-// 	}
-	
-// 	mlx_loop_hook(init, ft_randomize, init);
-// 	mlx_loop_hook(init, ft_hook, init);
-
-// 	mlx_loop(init);
-// 	mlx_terminate(init);
-// 	return (EXIT_SUCCESS);
-// }

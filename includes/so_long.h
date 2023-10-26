@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:53:03 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/20 15:53:02 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/26 16:09:35 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include "libft.h"
 # include "get_next_line.h"
+# include "ft_printf.h"
 # include <stdio.h>
 #include "MLX42.h"
 
@@ -45,15 +46,45 @@ typedef struct s_pos
 	int	y;
 }	t_pos;
 
+typedef struct	s_images
+{
+	mlx_image_t	*wall;
+	mlx_image_t	*floor;
+	mlx_image_t	*collect;
+	mlx_image_t	*exit;
+	mlx_image_t	*o_exit;
+	mlx_image_t	*front;
+}	t_images;
+
+typedef struct	s_collect
+{
+	int					x;
+	int					y;
+	int					index;
+	struct s_collect	*next;
+}	t_collect;
+
+typedef struct	s_gameinfo
+{
+	mlx_t		*window;
+	mlx_image_t	*player;
+	mlx_image_t	*collect;
+	mlx_image_t	*exit;
+	mlx_image_t	*o_exit;
+	t_collect	*coins_info;
+	char		**map;
+	int			key_down;
+	int			total_moves;
+	int			total_collect;
+	int			total_c;
+	int			x_exit;
+	int			y_exit;
+}	t_gameinfo;
+
 # define SIZE_OF_CHAR 1
 # define SIZE_OF_CHAR_PTR 8
 # define MAX_FD 65535
-# define BLOCK_SIZE 48
-# define WALL_CLR
-# define EMPTY_CLR
-# define EXIT_CLR
-# define START_CLR
-# define COLLECT_CLR
+# define BLOCK_SIZE 80
 
 char	*get_next_line(int fd);
 char	*put_line_map(t_lines *lines, int index);
@@ -82,12 +113,14 @@ int		in_arr(char s, char *arr);
 void	check_elements(char **map, t_mapinfo map_info, int *error_flag);
 void	print_error(int error_flag);
 
-void	load_window(char **map, t_mapinfo map_info);
-void	put_wall(mlx_t *window, mlx_image_t **image, t_mapinfo map_info, int i);
-void	put_empty(mlx_t *window, mlx_image_t **image, t_mapinfo map_info, int i);
-void	put_exit(mlx_t *window, mlx_image_t **image, t_mapinfo map_info, int i);
-void	put_start(mlx_t *window, mlx_image_t **image, t_mapinfo map_info, int i);
-void	put_collect(mlx_t *window, mlx_image_t **image, t_mapinfo map_info, int i);
+void		load_window(char **map, t_mapinfo map_info);
+t_images	*load_images(mlx_t *window);
+t_collect	*put_images_to_window(mlx_t *window, t_images *images, char **map, t_mapinfo map_info);
+int			find_index_collectable(t_collect **coins_info, int x, int y);
+void		make_move(t_gameinfo *gameinfo);
+void		collect_coins(t_gameinfo *gameinfo);
+int			ind_index_collectable(t_collect **coins_info, int x, int y);
+void		coinlist_push_back(t_collect **coins_info, int index, int x, int y);
 
 /*
 * Error values and meaning:
@@ -103,6 +136,7 @@ void	put_collect(mlx_t *window, mlx_image_t **image, t_mapinfo map_info, int i);
 * 8 = bad argc
 * 9 = txt not found
 * 10 = lines not equal
+* 11 = mlx error
 */
 
 /*

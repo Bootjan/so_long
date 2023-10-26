@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 18:56:51 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/20 12:42:35 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:21:32 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,3 @@ void	print_error(int error_flag)
 	if (error_flag == 10)
 		ft_putendl_fd("Map is not a perfect square", 1);
 }
-	

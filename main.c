@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:54:46 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/20 15:52:12 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/26 17:06:47 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 		map = load_map(argv[1], &map_info, &error_flag);
 	if (error_flag != 0)
 	{
+		free_map(&map);
 		print_error(error_flag);
 		return (0);
 	}

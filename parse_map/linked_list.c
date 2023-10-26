@@ -6,13 +6,13 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:13:26 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/20 12:42:31 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:24:16 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-t_lines	*create_element(char *line)
+static t_lines	*create_element(char *line)
 {
 	t_lines	*element;
 

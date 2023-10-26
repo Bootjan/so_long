@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:11 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/20 12:42:27 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/26 16:42:20 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	free_map(char ***map)
 		free((*map)[i]);
 		(*map)[i++] = NULL;
 	}
-	free(*map);
+	if (*map)
+		free(*map);
 	*map = NULL;
 }
 
@@ -69,7 +70,7 @@ void	check_elements(char **map, t_mapinfo map_info, int *error_flag)
 		x = 0;
 		while (x < map_info.width)
 		{
-			if(!in_arr(map[y][x++], "01ECP"))
+			if (!in_arr(map[y][x++], "01ECP"))
 			{
 				*error_flag = 7;
 				return ;

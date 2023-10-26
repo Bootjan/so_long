@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:17:08 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/20 12:41:42 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:20:53 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**cpy_map(char **map, t_mapinfo map_info)
 {
 	char	**temp_map;
 	int		i;
-	
+
 	temp_map = ft_calloc(map_info.height + 1, SIZE_OF_CHAR_PTR);
 	if (!temp_map)
 		return (NULL);

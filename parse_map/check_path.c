@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 11:46:36 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/20 12:42:16 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:21:02 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	find_path(char **map, t_pos exit, t_pos curr_pos, t_mapinfo *map_info)
 	int		i;
 	int		pos_directions;
 	char	direction;
-		
+
 	if (exit.x == curr_pos.x && exit.y == curr_pos.y)
 		map_info->path = 1;
 	i = 0;
