@@ -30,7 +30,7 @@ ${OBJS_DIR}/%.o:	%.c
 	${CC} ${CFLAGS} -c $< -o $@
 
 ${NAME}: ${MLX42} ${OBJS_DIR} ${MAKE_LIB}
-	${CC} ${OPEN_MAP_DIR} ${OPEN_WINDOW_DIR} ${MAIN} -o ${NAME} ${LIB}
+	${CC} ${CFLAGS} ${OPEN_MAP_DIR} ${OPEN_WINDOW_DIR} ${MAIN} -o ${NAME} ${LIB}
 
 ${MLX42}:
 	cmake ${MLX42_DIR} -B build

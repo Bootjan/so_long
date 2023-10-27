@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:07:59 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/27 16:59:20 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/27 19:33:29 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	free_coins_list(t_collect **coins_info)
 int	find_index_collectable(t_collect **coins_info, int x, int y)
 {
 	t_collect	*current;
-	int			index;
 
 	if (!coins_info)
 		return (-1);
