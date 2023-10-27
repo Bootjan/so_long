@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 18:56:51 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/24 18:21:32 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:46:38 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,27 @@
 
 void	print_error(int error_flag)
 {
-	ft_putendl_fd("Error:", 1);
+	ft_printf("Error:\n");
 	if (error_flag == 1)
-		ft_putendl_fd("Program encountered a malloc error.", 1);
+		ft_printf("Program encountered a malloc error.\n");
 	if (error_flag == 2)
-		ft_putendl_fd("Incorrect amount of starts were found.", 1);
+		ft_printf("Incorrect amount of starts were found.\n");
 	if (error_flag == 3)
-		ft_putendl_fd("Incorrect amount of exits were found.", 1);
+		ft_printf("Incorrect amount of exits were found.\n");
 	if (error_flag == 4)
-		ft_putendl_fd("No collectibles were found.", 1);
+		ft_printf("No collectibles were found.\n");
 	if (error_flag == 5)
-		ft_putendl_fd("The borders of the map are incomplete.", 1);
+		ft_printf("The borders of the map are incomplete.\n");
 	if (error_flag == 6)
-		ft_putendl_fd("There is no path from start to exit.", 1);
+		ft_printf("There is no path from start to exit.\n");
 	if (error_flag == 7)
-		ft_putendl_fd("An incorrect character was found in the map.", 1);
+		ft_printf("An incorrect character was found in the map.\n");
 	if (error_flag == 8)
-		ft_putendl_fd("2 arguments should be given on argment line.", 1);
+		ft_printf("2 arguments should be given on argment line.\n");
 	if (error_flag == 9)
-		ft_putendl_fd("File not found.", 1);
+		ft_printf("File not found.\n");
 	if (error_flag == 10)
-		ft_putendl_fd("Map is not a perfect square", 1);
+		ft_printf("Map is not a perfect rectangle.\n");
+	if (error_flag == 12)
+		ft_printf("Map is too small.\n");
 }

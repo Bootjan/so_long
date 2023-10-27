@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:07:59 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/26 17:30:36 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:59:20 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,53 +22,46 @@ static t_collect	*create_element(int index, int x, int y)
 	element->index = index;
 	element->x = x;
 	element->y = y;
+	element->taken = false;
 	element->next = NULL;
 	return (element);
 }
 
-void	coinlist_push_back(t_collect **coins_info, int index, int x, int y)
+int	coinlist_push_back(t_collect **coins_info, int index, int x, int y)
 {
 	t_collect	*current;
 	t_collect	*element;
 
 	element = create_element(index, x, y);
 	if (!element)
-		return ; // error handeling
+		return (0);
 	current = *coins_info;
 	if (!current)
 	{
 		*coins_info = element;
-		return ;
+		return (1);
 	}
 	while (current->next)
 		current = current->next;
 	current->next = element;
+	return (1);
 }
 
-static void	free_el_index(t_collect **coins_info, int index)
+void	free_coins_list(t_collect **coins_info)
 {
 	t_collect	*current;
-	t_collect	*previous;
+	t_collect	*next;
 
-	if (!*coins_info)
-		return ;
 	current = *coins_info;
-	previous = NULL;
+	if (!current)
+		return ;
 	while (current)
 	{
-		if (current->index == index)
-		{
-			if (!previous)
-				*coins_info = current->next;
-			else
-				previous->next = current->next;
-			free(current);
-			current = NULL;
-			return ;
-		}
-		previous = current;
-		current = current->next;
+		next = current->next;
+		free(current);
+		current = next;
 	}
+	*coins_info = NULL;
 }
 
 int	find_index_collectable(t_collect **coins_info, int x, int y)
@@ -81,30 +74,29 @@ int	find_index_collectable(t_collect **coins_info, int x, int y)
 	current = *coins_info;
 	while (current)
 	{
-		if (current->x == x && current->y == y)
+		if (current->x == x && current->y == y && current->taken == false)
 		{
-			index = current->index;
-			free_el_index(coins_info, index);
-			return (index);
+			current->taken = true;
+			return (current->index);
 		}
 		current = current->next;
 	}
 	return (-1);
 }
 
-void	collect_coins(t_gameinfo *gameinfo)
+void	collect_coins(void *param)
 {
 	mlx_image_t	*player;
-	char		**map;
 	int			x;
 	int			y;
 	int			index;
+	t_gameinfo	*gameinfo;
 
+	gameinfo = (t_gameinfo *)param;
 	player = gameinfo->player;
-	map = gameinfo->map;
 	x = (player->instances[0].x + 5) / BLOCK_SIZE;
 	y = (player->instances[0].y + 5) / BLOCK_SIZE;
-	if (map[y][x] != 'C')
+	if (gameinfo->map[y][x] != 'C')
 		return ;
 	index = find_index_collectable(&(gameinfo->coins_info), x, y);
 	if (index == -1)

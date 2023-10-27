@@ -4,7 +4,8 @@ OPEN_MAP = check_path.c check_path_helpers.c check_validity.c compute_map.c \
 MAP_DIR = ./parse_map
 OPEN_MAP_DIR = ${OPEN_MAP:%=${MAP_DIR}/%}
 
-OPEN_WINDOW = load_window.c load_images.c collect_coins.c make_move.c
+OPEN_WINDOW = load_window.c load_images.c collect_coins.c make_move.c \
+utils.c put_images.c
 WINDOW_DIR = ./open_window
 OPEN_WINDOW_DIR = ${OPEN_WINDOW:%=${WINDOW_DIR}/%}
 
@@ -12,7 +13,7 @@ MAIN = main.c
 NAME = so_long
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -fsantize=address -g
+CFLAGS = -Wall -Werror -Wextra
 
 LIB = ${MAKE_LIB} ./build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm -g
 RM = rm -f
@@ -42,11 +43,12 @@ ${OBJS_DIR}:
 	mkdir -p ${OBJS_DIR}
 
 clean:	
-	${RM} ${NAME}
 	make -C ${MAKE_DIR} clean
 
 fclean: clean
+	${RM} ${NAME}
 	make -C ${MAKE_DIR} fclean
+	rm -rf ./build
 
 re: fclean all
 

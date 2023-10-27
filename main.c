@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:54:46 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/26 17:06:47 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:18:43 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv)
 	t_mapinfo	map_info;
 
 	error_flag = 0;
+	map = NULL;
 	if (argc != 2)
 		error_flag = 8;
 	else
@@ -31,8 +32,8 @@ int	main(int argc, char **argv)
 	}
 	if (error_flag == 0)
 	{
-		print_map(map, map_info);
 		load_window(map, map_info);
 		free_map(&map);
 	}
+	return (0);
 }

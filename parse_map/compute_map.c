@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:56:43 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/24 18:21:55 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:45:27 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ char	**fill_map(t_lines **lines, int lines_n, int *error_flag)
 
 int	check_validity_map(char **map, t_mapinfo *map_info, int *error_flag)
 {
-	check_elements(map, *map_info, error_flag);
-	check_top_and_bottem(map, *map_info, error_flag);
-	check_left_right(map, *map_info, error_flag);
 	check_exits(map, map_info, error_flag);
 	check_start(map, map_info, error_flag);
 	check_collectables(map, map_info, error_flag);
+	check_left_right(map, *map_info, error_flag);
+	check_top_and_bottem(map, *map_info, error_flag);
+	check_elements(map, *map_info, error_flag);
 	if (*error_flag != 0)
 		return (0);
 	check_path(map, map_info, error_flag);
@@ -92,7 +92,7 @@ char	**compute_map(int fd, t_mapinfo *map_info, int *error_flag)
 	}
 	if (map_info->height < 3 || map_info->width < 3)
 	{
-		*error_flag = 2;
+		*error_flag = 12;
 		free_list(&lines, *error_flag);
 		return (NULL);
 	}

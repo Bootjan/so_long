@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 15:59:27 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/26 16:16:31 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:10:23 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,11 @@ void	move_player(mlx_image_t *player, t_gameinfo *gameinfo, char direction)
 	ft_printf("Number of moves: %i.\n", gameinfo->total_moves);
 }
 
-void	make_move(t_gameinfo *gameinfo)
+void	on_key_press(mlx_t *window, t_gameinfo *gameinfo, mlx_image_t *player)
 {
-	mlx_t		*window;
-	mlx_image_t	*player;
-	int			x;
-	int			y;
+	int	x;
+	int	y;
 
-	window = gameinfo->window;
-	player = gameinfo->player;
 	x = player->instances[0].x;
 	y = player->instances[0].y;
 	if (!key_down(window))
@@ -82,4 +78,16 @@ void	make_move(t_gameinfo *gameinfo)
 	if (mlx_is_key_down(window, MLX_KEY_D) && \
 	valid_move(x, y, gameinfo->map, 'd') && gameinfo->key_down == 0)
 		move_player(player, gameinfo, 'd');
+}
+
+void	make_move(void *param)
+{
+	mlx_t		*window;
+	mlx_image_t	*player;
+	t_gameinfo	*gameinfo;
+
+	gameinfo = (t_gameinfo *)param;
+	window = gameinfo->window;
+	player = gameinfo->player;
+	on_key_press(window, gameinfo, player);
 }

@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:11 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/26 16:42:20 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:19:02 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_map(char ***map)
 {
 	int	i;
 
-	if (!*map || !**map)
+	if (!*map)
 		return ;
 	i = 0;
 	while ((*map)[i])
@@ -48,15 +48,6 @@ int	compute_map_width(int current_width, char *line)
 	if (current_width != (int)ft_strlen(line))
 		return (-1);
 	return (current_width);
-}
-
-void	print_map(char **map, t_mapinfo map_info)
-{
-	int	i;
-
-	i = 0;
-	while (i < map_info.height)
-		ft_putendl_fd(map[i++], 1);
 }
 
 void	check_elements(char **map, t_mapinfo map_info, int *error_flag)
