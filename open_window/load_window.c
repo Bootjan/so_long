@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:43:52 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/27 16:24:22 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/30 17:03:15 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ char **map, t_mapinfo map_info)
 	*images = load_images(window);
 	if (!*images)
 	{
-		mlx_close_window(window);
+		mlx_terminate(window);
 		ft_putendl_fd((char *)mlx_strerror(mlx_errno), 1);
 		return (NULL);
 	}
 	*coins_info = put_images_to_window(window, *images, map, map_info);
 	if (!*coins_info)
 	{
-		delete_images(window, *images);
-		mlx_close_window(window);
+		mlx_terminate(window);
+		free(*images);
 		ft_putendl_fd((char *)mlx_strerror(mlx_errno), 1);
 		return (NULL);
 	}

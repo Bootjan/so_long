@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:53:03 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/27 16:56:24 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/30 17:03:59 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,12 +150,5 @@ t_mapinfo map_info, char **map);
 * 11 = mlx error
 * 12 = map is too small
 */
-
-/*
-* size of block = 48
-*/
-
-// map[row][column]
-// map[y][x]
 
 #endif

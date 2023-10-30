@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 17:01:09 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/27 17:01:28 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/30 17:02:34 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_images	*load_images(mlx_t *window)
 	images->front = load_image(window, "./textures/front.png", &error_flag);
 	if (error_flag == 1)
 	{
-		delete_images(window, images);
+		free(images);
 		return (NULL);
 	}
 	return (images);
