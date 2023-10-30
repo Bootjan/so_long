@@ -50,6 +50,7 @@ fclean: clean
 	${RM} ${NAME}
 	make -C ${MAKE_DIR} fclean
 	rm -rf ./build
+	rm -rf ${OBJS_DIR}
 
 re: fclean all
 
