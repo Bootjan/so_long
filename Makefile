@@ -1,5 +1,5 @@
 OPEN_MAP = check_path.c check_path_helpers.c check_validity.c compute_map.c \
-	linked_list.c print_error.c helpers.c
+	linked_list.c print_error.c helpers.c is_ber_file.c
 
 OPEN_WINDOW = load_window.c load_images.c collect_coins.c make_move.c \
 utils.c put_images.c
@@ -28,7 +28,7 @@ MLX42 = ./build/libmlx42.a
 all:	${NAME}
 
 ${NAME}: ${MLX42} ${MAKE_LIB} ${OBJS_DIR} ${OBJS}
-	${CC} ${OBJS} ${LIB} -o ${NAME}	
+	${CC} ${CFLAGS} ${OBJS} ${LIB} -o ${NAME}
 
 ${MLX42}:
 	cmake ${MLX42_DIR} -B build
@@ -41,10 +41,11 @@ ${OBJS_DIR}:
 	mkdir -p ${OBJS_DIR}
 
 ${OBJS_DIR}/%.o:	%.c
-	${CC} -c $< -o $@ ${INCLUDE}
+	${CC} ${CFLAGS} -c $< -o $@ ${INCLUDE}
 
 clean:	
 	make -C ${MAKE_DIR} clean
+	${RM} -r ${OBJS_DIR}
 
 fclean: clean
 	${RM} ${NAME}

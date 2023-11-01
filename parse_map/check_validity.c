@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:33:00 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/20 12:42:19 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:10:45 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,13 @@ void	check_collectables(char **map, t_mapinfo *map_info, int *error_flag)
 		x = 1;
 		while (x < map_info->width - 1)
 		{
-			if (map[y][x++] == 'C')
+			if (map[y][x] == 'C')
 			{
 				map_info->collectables_n++;
+				push_collect_xy(map_info, x, y, error_flag);
 				collect_n++;
 			}
+			x++;
 		}
 		y++;
 	}

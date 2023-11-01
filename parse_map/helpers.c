@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 14:41:11 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/27 16:19:02 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:11:10 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	init_map_info(t_mapinfo *map_info)
 	map_info->y_exit = 0;
 	map_info->collectables_n = 0;
 	map_info->path = 0;
+	map_info->poss_collect = 0;
+	map_info->collect_xy = NULL;
 }
 
 void	free_map(char ***map)
@@ -69,4 +71,29 @@ void	check_elements(char **map, t_mapinfo map_info, int *error_flag)
 		}
 		y++;
 	}
+}
+
+void	push_collect_xy(t_mapinfo *map_info, int x, int y, int *error_flag)
+{
+	t_pos	*element;
+	t_pos	*current;
+
+	element = ft_calloc(1, sizeof(t_pos));
+	if (!element)
+	{
+		*error_flag = 1;
+		return ;
+	}
+	element->x = x;
+	element->y = y;
+	element->next = NULL;
+	current = map_info->collect_xy;
+	if (!current)
+	{
+		map_info->collect_xy = element;
+		return ;
+	}
+	while (current->next)
+		current = current->next;
+	current->next = element;
 }

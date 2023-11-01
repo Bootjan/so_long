@@ -6,11 +6,37 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:17:08 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/24 18:20:53 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:18:51 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+char	update_direction(char direction)
+{
+	if (direction == 's')
+		return ('a');
+	if (direction == 'a')
+		return ('w');
+	if (direction == 'w')
+		return ('d');
+	return ('s');
+}
+
+t_pos	update_curr_pos(t_pos curr_pos, char direction)
+{
+	t_pos	new_pos;
+
+	if (direction == 's')
+		new_pos = init_pos(curr_pos.x, curr_pos.y + 1);
+	if (direction == 'w')
+		new_pos = init_pos(curr_pos.x, curr_pos.y - 1);
+	if (direction == 'a')
+		new_pos = init_pos(curr_pos.x - 1, curr_pos.y);
+	if (direction == 'd')
+		new_pos = init_pos(curr_pos.x + 1, curr_pos.y);
+	return (new_pos);
+}
 
 t_pos	init_pos(int x, int y)
 {
@@ -18,6 +44,7 @@ t_pos	init_pos(int x, int y)
 
 	pos.x = x;
 	pos.y = y;
+	pos.next = NULL;
 	return (pos);
 }
 

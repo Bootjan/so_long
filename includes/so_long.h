@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:53:03 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/30 17:03:59 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:54:45 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@
 # include "ft_printf.h"
 # include "MLX42.h"
 
+typedef struct s_pos
+{
+	int				x;
+	int				y;
+	struct s_pos	*next;
+}	t_pos;
+
 typedef struct s_lines
 {
 	char			*line;
@@ -29,21 +36,17 @@ typedef struct s_lines
 
 typedef struct s_mapinfo
 {
-	int	width;
-	int	height;
-	int	x_exit;
-	int	y_exit;
-	int	x_start;
-	int	y_start;
-	int	collectables_n;
-	int	path;
+	int		width;
+	int		height;
+	int		x_exit;
+	int		y_exit;
+	int		x_start;
+	int		y_start;
+	int		collectables_n;
+	int		path;
+	int		poss_collect;
+	t_pos	*collect_xy;
 }	t_mapinfo;
-
-typedef struct s_pos
-{
-	int	x;
-	int	y;
-}	t_pos;
 
 typedef struct s_images
 {
@@ -114,7 +117,7 @@ void		check_path(char **map, t_mapinfo *map_info, int *error_flag);
 char		**cpy_map(char **map, t_mapinfo map_info);
 int			in_arr(char s, char *arr);
 void		check_elements(char **map, t_mapinfo map_info, int *error_flag);
-void		print_error(int error_flag);
+int			print_error(int error_flag);
 void		load_window(char **map, t_mapinfo map_info);
 t_images	*load_images(mlx_t *window);
 t_collect	*put_images_to_window(mlx_t *window, t_images *images, \
@@ -132,6 +135,11 @@ void		free_vars(t_images **images, t_gameinfo **gameinfo, \
 t_collect **coins_info);
 t_gameinfo	*init_gameinfo_map(t_gameinfo *gameinfo, \
 t_mapinfo map_info, char **map);
+t_pos		update_curr_pos(t_pos curr_pos, char direction);
+char		update_direction(char direction);
+void		push_collect_xy(t_mapinfo *map_info, int x, int y, int *error_flag);
+void		free_map_info(t_mapinfo *map_info);
+int			is_ber_file(const char *str);
 
 /*
 * Error values and meaning:
@@ -149,6 +157,7 @@ t_mapinfo map_info, char **map);
 * 10 = lines not equal
 * 11 = mlx error
 * 12 = map is too small
+* 13 = no path to c
 */
 
 #endif

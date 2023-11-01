@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 12:56:43 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/27 16:45:27 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:54:26 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,16 @@ char	**load_map(char *file, t_mapinfo *map_info, int *error_flag)
 	char	**map;
 	int		fd;
 
+	if (!is_ber_file(file))
+		return (*error_flag = 9, NULL);
 	fd = open(file, O_RDONLY);
 	if (fd == -1 || fd > MAX_FD)
-	{
-		*error_flag = 9;
-		return (NULL);
-	}
+		return (*error_flag = 9, NULL);
 	init_map_info(map_info);
 	map = compute_map(fd, map_info, error_flag);
+	free_map_info(map_info);
+	if (*error_flag != 0)
+		free_map(&map);
 	close(fd);
 	return (map);
 }

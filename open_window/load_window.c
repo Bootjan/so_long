@@ -6,7 +6,7 @@
 /*   By: bschaafs <bschaafs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 12:43:52 by bschaafs          #+#    #+#             */
-/*   Updated: 2023/10/30 17:03:15 by bschaafs         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:07:29 by bschaafs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char **map, t_mapinfo map_info)
 	mlx_t	*window;
 
 	window = mlx_init(map_info.width * BLOCK_SIZE, \
-	map_info.height * BLOCK_SIZE, "So Long!", false);
+	map_info.height * BLOCK_SIZE, "So Long!", true);
 	if (!window)
 	{
 		ft_putendl_fd((char *)mlx_strerror(mlx_errno), 1);
